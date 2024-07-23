@@ -2,7 +2,6 @@
 
 require 'dotenv'
 
-
 module DevOps
   class Base
     def initialize
@@ -10,4 +9,3 @@ module DevOps
     end
   end
 end
-

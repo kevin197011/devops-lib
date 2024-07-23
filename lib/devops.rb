@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module DevOps
   class Error < StandardError; end
   # Your code goes here...
