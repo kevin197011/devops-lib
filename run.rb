@@ -6,3 +6,4 @@ require 'devops'
 
 c = DevOps::Bastion.new
 c.hosts
+c.users
