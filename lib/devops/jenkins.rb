@@ -1,6 +1,8 @@
 # frozen_string_literal: true
 
 require 'jenkins_api_client'
+require 'rbconfig'
+require 'logger'
 
 
 module DevOps
@@ -10,6 +12,8 @@ module DevOps
       @url = ENV['JENKINS_URL']
       @username = ENV['JENKINS_USERNAME']
       @password = ENV['JENKINS_TOKEN']
+      @logger = Logger.new(RbConfig::CONFIG['host_os'] =~ /linux|bsd/ ? '/dev/null' : 'NUL')
+      @logger.level = Logger::UNKNOWN
     end
 
     def jobs
@@ -24,13 +28,18 @@ module DevOps
       instance.job.delete(job)
     end
 
+    def config(job)
+      instance.job.get_config(job)
+    end
+    
     private
 
     def instance
       JenkinsApi::Client.new(
         server_url: @url,
         username: @username,
-        password: @password
+        password: @password,
+        logger: @logger
       )
     end
   end
